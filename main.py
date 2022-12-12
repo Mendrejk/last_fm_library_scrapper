@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 
+from collections import OrderedDict
+
 
 def get_soup(endpoint):
     __user_library_url = 'https://www.last.fm/user/Maendrake/library/'
@@ -37,9 +39,16 @@ def scrap_artists():
 
 
 def main():
-    scrap_tracks()
-    scrap_albums()
-    scrap_artists()
+    songs, artists_from_tracks = scrap_tracks()
+    albums, artists_from_albums = scrap_albums()
+    artists = scrap_artists()
+
+    # Create ordered dictionaries to store the unique items from each list
+    unique_songs = OrderedDict.fromkeys(songs)
+    unique_albums = OrderedDict.fromkeys(albums)
+    unique_artists = OrderedDict.fromkeys(artists + artists_from_albums + artists)
+
+    print(unique_artists.keys())
 
 
 if __name__ == '__main__':
