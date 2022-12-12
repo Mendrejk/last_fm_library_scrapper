@@ -7,6 +7,7 @@ from typing import List, Tuple, Any
 from requests import Response
 
 
+# This method only scraps data from the first page of data
 def get_soup(endpoint: str) -> BeautifulSoup:
     __user_library_url: str = 'https://www.last.fm/user/Maendrake/library/'
 
@@ -51,7 +52,9 @@ def main():
     unique_albums: OrderedDict[str, None] = OrderedDict.fromkeys(albums)
     unique_artists: OrderedDict[str, None] = OrderedDict.fromkeys(artists + artists_from_albums + artists)
 
-    print(unique_artists.keys())
+    print('Songs:', list(unique_songs.keys()))
+    print('Albums:', list(unique_albums.keys()))
+    print('Artists:', list(unique_artists.keys()))
 
 
 if __name__ == '__main__':
